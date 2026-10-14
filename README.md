@@ -1,60 +1,71 @@
 # Set Vertex XYZ Modal
 
-A small Blender addon that lets you set the absolute coordinates of selected vertices using the keyboard, with a live preview that follows your mouse.
-
-No more hunting for number fields in the N-panel or dealing with draggable sliders that steal keyboard focus.
+A Blender add-on for typing the world position of selected vertices. An overlay follows the mouse, and the mesh updates as soon as the number is valid.
 
 ## Features
 
-- Keyboard-driven coordinate input
-- Press **X**, **Y**, or **Z** to select a field (clears it so you can type a fresh value)
-- Type numbers (including decimals and negatives) while the vertex updates live
-- Overlay text follows the mouse cursor
-- **Enter** confirms the new position
-- **Esc** cancels and restores the original position
-- Works with a single vertex or multiple vertices (moves the selection by the median)
-- Supports global coordinates
+- Type absolute world coordinates from the keyboard
+- Press **X**, **Y**, or **Z** to choose an axis (the field clears)
+- Digits, a decimal point, and a sign, from the main keyboard or the numpad
+- Live preview while X, Y, and Z are all valid numbers
+- **Enter** applies the position
+- **Esc** restores the original positions
+- One vertex moves to the typed point. Several vertices move together so their median lands on that point
+- Middle mouse and the scroll wheel still orbit, pan, and zoom
 
-## Installation
+## Requirements
 
-1. Download or clone this repository.
-2. In Blender go to **Edit → Preferences → Add-ons**.
-3. Click **Install…** and select the `set_vertex_xyz.py` file (or the whole folder if you package it as a zip).
-4. Enable the checkbox next to **Set Vertex XYZ Modal**.
-5. (Optional) Click **Save Preferences**.
+Blender 3.0 or newer.
 
-The operator is now available permanently.
+## Install
+
+The add-on is the single file `set_vertex_xyz.py`.
+
+### Blender 4.2 and later
+
+1. Open **Edit → Preferences → Add-ons**.
+2. Open the menu in the top-right corner and choose **Install from Disk…**.
+3. Select `set_vertex_xyz.py`.
+4. Enable **Set Vertex XYZ Modal**.
+5. Optional: choose **Save Preferences**.
+
+### Blender 3.x and 4.0–4.1
+
+1. Open **Edit → Preferences → Add-ons**.
+2. Click **Install…** and select `set_vertex_xyz.py`.
+3. Enable **Set Vertex XYZ Modal**.
 
 ## Usage
 
 1. Enter **Edit Mode** on a mesh.
 2. Select one or more vertices.
-3. Start the operator:
-   - Press **F3** and search for **Set Vertex XYZ (Modal)**
-   - Or open the Vertex menu (**Ctrl+V**) and choose it
-   - Or assign a custom shortcut in Preferences → Keymap
-4. The overlay appears next to your mouse showing the current X, Y, and Z values.
-5. Press **X**, **Y**, or **Z** to choose which value to edit (the field clears).
-6. Type the new number. The vertex moves live so you can see where it will land.
-7. Press **Enter** to confirm, or **Esc** to cancel and restore the original position.
+3. Run **Set Vertex XYZ (Modal)**:
+   - Press **F3** and search for the name
+   - Open the Vertex menu (**Ctrl+V**) and choose it
+   - Or bind a shortcut to `mesh.set_vertex_xyz_modal`
+4. The overlay shows the current world X, Y, and Z beside the cursor.
+5. Press **X**, **Y**, or **Z**, then type the new number.
+6. Press **Enter** to apply, or **Esc** to restore the original positions.
 
-### Keyboard Controls
+### Keyboard
 
-| Key              | Action                          |
-|------------------|---------------------------------|
-| **X** / **Y** / **Z** | Switch to that axis and clear it |
-| **0–9**, **.**, **-** | Type a number                   |
-| **Backspace**    | Delete last character           |
-| **Enter**        | Apply and finish                |
-| **Esc**          | Cancel and restore original     |
+| Key | Action |
+| --- | --- |
+| **X** / **Y** / **Z** | Edit that axis and clear it |
+| **0–9**, numpad digits | Append a digit |
+| **.** or **,** or numpad **.** | Decimal point |
+| **-** or numpad **-** | Toggle the sign |
+| **Backspace** | Delete the last character |
+| **Enter** | Apply when every axis is a valid number |
+| **Esc** | Cancel and restore the original positions |
+| **Middle mouse**, **scroll** | Orbit, pan, and zoom |
 
-## Notes
+An empty field, `-`, or `.` leaves the mesh where it is. **Enter** stays in the operator until every axis is a complete number.
 
-- The overlay only shows the three coordinate lines so it stays out of the way.
-- Live preview skips invalid intermediate states (e.g. a trailing decimal point).
-- Global coordinates are used by default.
-- Multiple selected vertices are moved together based on their median point.
+Coordinates are world space on the active object. With several vertices selected, the whole group keeps its shape and shifts so the median matches the typed point.
 
 ## License
 
-GPL-3.0 or later (same as Blender).
+[GNU General Public License v3.0 or later](LICENSE).
+
+Blender requires this license for add-ons. The full text is in `LICENSE`, and the source file carries the SPDX identifier `GPL-3.0-or-later`.

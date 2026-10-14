@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Blender backups and local packages
+*.blend1
+*.blend2
+*.zip
+
+# OS and editors
+.DS_Store
+*~
+.idea/
+.vscode/
